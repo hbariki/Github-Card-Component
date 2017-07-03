@@ -28,4 +28,27 @@ const CardList = (props) => {
         </div>
     );
 }
-ReactDOM.render(<CardList cards = {data} /> , mountNode);
+
+class Form extends React.Component {
+    render() {
+        return(
+            <form>
+                <imput type = "text" placeholder="GitHub UserName" />
+                <button type = "submit">Add Card </button>
+            </form>
+        );
+    }
+}
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <Form />
+                <CardList cards = {data} />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App /> , mountNode);
