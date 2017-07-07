@@ -1,54 +1,90 @@
 const Card = (props) => {
     return (
-        <div style = {margin : 1em}>
-            <img width = "75" src = {props.avatar_url} />
-            <div style = {{display: 'inlineBlock', marginLeft : 10}}>
-              <div style = {{fontSize: '1.25em' fontweight:'bold'}}>{props.name} </div>
-              <div>{props.company}</div>
-            </div>
-        </div>
-    );
+        <div style={{margin: '1em'}}>
+<img  width = "75" src = {props.avatar_url} />
+<div style={{display: 'inline-block', marginLeft:10}}>
+<div style={{fontSize : '1.25em', fontWeight:'bold'}}>{props.name}</div>
+    <div>{props.company}</div>
+    </div>
+    </div>
+);
 };
 
-let = data [
-  { name : paul O' Shannesy',
-    avatar_url: "https://avatars3.githubusercontent.com/u/1?v=3",
-    company : facebook,
-  },
-  {
-      name: "Ben Alpert",
-      avatar_url: "https://avatars3.githubusercontent.com/u/2?v=3",
-      company: facebook,
-  }
+let data = [
+    { name: "Paul O'Shannessy",
+        avatar_url: "https://avatars3.githubusercontent.com/u/1?v=3",
+        company: "Facebook" },
+
+    { name: "Ben Albert",
+        avatar_url: "https://avatars3.githubusercontent.com/u/2?v=3",
+        company: "Facebook" },
+
 ];
+
+
+
 const CardList = (props) => {
     return (
         <div>
-          {props.cards.map(card => <Card {...card} />)}
-        </div>
-    );
+        {props.cards.map(card => <Card {...card} />)}
+</div>
+);
 }
 
 class Form extends React.Component {
-    render() {
-        return(
-            <form>
-                <imput type = "text" placeholder="GitHub UserName" />
-                <button type = "submit">Add Card </button>
-            </form>
-        );
-    }
-}
+    state = {userName: ''}
+    handleSubmit = (event) => {
+    event.preventDefault();
 
-class App extends React.Component {
+    axios.get(`https://api.github.com/users/${this.state.userName   }`)
+    .then(resp => {
+    this.props.onSubmit(resp.data);
+    });
+    };
     render() {
-        return (
-            <div>
-                <Form />
-                <CardList cards = {data} />
-            </div>
-        );
-    }
-}
+    return(
 
-ReactDOM.render(<App /> , mountNode);
+    <form onSubmit = {this.handleSubmit}>
+    <input type = "text"
+    value = {this.state.userName}
+    onChange = {(event) => this.setState({ userName :              event.target.value})}
+    placeholder="Github UserName" required />
+    <button type = "submit">Add Card</button>
+    </form>
+
+
+    );
+    }
+    }
+
+    class App extends React.Component {
+    state = {
+    cards: [
+    {name: "David",
+    avatar_url: "https://avatars3.githubusercontent.com/u/1?v=3",
+    company: "Facebook" },
+
+    { name: "Ben Albert",
+    avatar_url: "https://avatars3.githubusercontent.com/u/2?v=3",
+    company: "Facebook" },
+    ]
+    };
+
+    addNewCard = (cardInfo) => {
+    this.setState(prevState => ({
+    cards: prevState.cards.concat(cardInfo)
+    }));
+    };
+    render() {
+    return (
+    <div>
+    <Form onsubmit = {this.addNewCard} />
+    <CardList cards = {this.state.cards} />
+    </div>
+    );
+    }
+    }
+
+
+
+    ReactDOM.render(<App /> , mountNode);
