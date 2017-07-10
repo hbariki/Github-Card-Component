@@ -1,5 +1,5 @@
 const Stars = (props) => {
-const numberOfStars = 1+Math.floor(Math.random()*9);
+//
 
 //  let stars = [];
 // for(let i=0; i<numberOfStars; i++){
@@ -8,7 +8,7 @@ const numberOfStars = 1+Math.floor(Math.random()*9);
 
 return (
 <div className = "col-5">
-    {_.range(numberOfStars).map(i =>
+    {_.range(props.numberOfStars).map(i =>
     <i key={i} className = "fa fa-star"></i>
     )}
 </div>
@@ -52,15 +52,17 @@ return (
 };
 Numbers.list = _.range(1, 10);
 class Game extends React.Component {
-state = {
-selectedNumbers: [],
+  state = {
+    selectedNumbers: [],
+     randomNumberOfStars = 1+Math.floor(Math.random()*9);
 };
-selectNumber = (clickedNumber) => {
-this.setState(prevState => ({
-selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
-}));
+  selectNumber = (clickedNumber) => {
+    if(this.state.selectedNumbers.indexOf(clickedNumber) >= 0 ) { return; }
+    this.setState(prevState => ({
+    selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+  }));
 
-};
+ };
 
 render() {
 return (
@@ -68,7 +70,7 @@ return (
     <h3>Play Nine</h3>
     <hr />
     <div className = "row">
-        <Stars />
+        <Stars numberOfStars={this.randomNumberOfStars} />
         <Button />
         <Answer selectedNumbers = {this.state.selectedNumbers} />
 
