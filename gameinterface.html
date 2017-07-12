@@ -1,5 +1,5 @@
 const Stars = (props) => {
-//
+// const numberOfStars = 1+Math.floor(Math.random()*9);
 
 //  let stars = [];
 // for(let i=0; i<numberOfStars; i++){
@@ -12,7 +12,7 @@ return (
     <i key={i} className = "fa fa-star"></i>
     )}
 </div>
-  );
+);
 }
 
 const Button = (props) => {
@@ -52,17 +52,17 @@ return (
 };
 Numbers.list = _.range(1, 10);
 class Game extends React.Component {
-  state = {
-    selectedNumbers: [],
-     randomNumberOfStars = 1+Math.floor(Math.random()*9);
+state = {
+selectedNumbers: [],
+randomNumberOfStars: 1+Math.floor(Math.random()*9),
 };
-  selectNumber = (clickedNumber) => {
-    if(this.state.selectedNumbers.indexOf(clickedNumber) >= 0 ) { return; }
-    this.setState(prevState => ({
-    selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
-  }));
+selectNumber = (clickedNumber) => {
+if(this.state.selectedNumbers.indexOf(clickedNumber) >= 0 ){return; }
+this.setState(prevState => ({
+selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+}));
 
- };
+};
 
 render() {
 return (
@@ -70,9 +70,9 @@ return (
     <h3>Play Nine</h3>
     <hr />
     <div className = "row">
-        <Stars numberOfStars={this.randomNumberOfStars} />
+        <Stars numberOfStars={this.state.randomNumberOfStars} />
         <Button />
-        <Answer selectedNumbers = {this.state.selectedNumbers} />
+        <Answer selectedNumbers={this.state.selectedNumbers} />
 
     </div>
     <br />
@@ -81,13 +81,13 @@ return (
 
 
 </div>
-);
-}
+     );
+  }
 }
 
 class App extends React.Component {
 render() {
-return (
+  return (
 <div>
     <Game />
 
@@ -97,3 +97,6 @@ return (
 }
 
 ReactDOM.render(<App />, mountNode);
+
+
+
