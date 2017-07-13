@@ -72,11 +72,11 @@ return (
 };
 Numbers.list = _.range(1, 10);
 class Game extends React.Component {
-state = {
-selectedNumbers: [],
-randomNumberOfStars: 1+Math.floor(Math.random()*9),
-answerIsCorrect:null,
-};
+  state = {
+  selectedNumbers: [],
+  randomNumberOfStars: 1+Math.floor(Math.random()*9),
+  answerIsCorrect:null,
+ };
 selectNumber = (clickedNumber) => {
   if(this.state.selectedNumbers.indexOf(clickedNumber) >= 0 ){return; }
     this.setState(prevState => ({
